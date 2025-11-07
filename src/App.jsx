@@ -27,20 +27,27 @@ const mockData = [
 
 function App() {
     const [todos, setTodos] = useState(mockData);
-    const inputRef = useRef(mockData.length);
-    useEffect(() => {
-        console.log(todos);
-    }, [todos]);
+    const inputRef = useRef(3);
+
+    const onUpdate = (targetId) => {
+        setTodos(todos.map((todo) => todo.id === targetId ? { ...todo, isDone: !todo.isDone } : todo));
+    }
+
+    const onDelete = (targetId) => {
+        setTodos(todos.filter((todo) => todo.id !== targetId));
+    }
 
     const onCreate = (content) => {
         const newTodo = {
             id: inputRef.current++,
             isDone: false,
             content: content,
-            date : new Date().getTime()
-        }
+            date: new Date().getTime(),
+        };
+        console.log(newTodo);
 
-        setTodos([...todos, newTodo]);
+
+        setTodos([newTodo,...todos ]);
     }
   return (
     <div className={"display-flex flex-column m-5 App mx-auto w-100"}>
@@ -48,10 +55,13 @@ function App() {
             <Header />
         </section>
         <section>
-            <Editor onCreate={onCreate}/>
+            <Editor onCreate={onCreate} />
         </section>
         <section>
-            <List />
+            <List todos={todos}
+            onUpdate={onUpdate}
+              onDelete={onDelete}
+            />
         </section>
     </div>
   );
