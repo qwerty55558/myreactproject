@@ -5,6 +5,7 @@ import New from './pages/New.jsx'
 import Diary from './pages/Diary.jsx'
 import NotFound from './pages/NotFound.jsx'
 import Button from './components/Button.jsx'
+import Header from './components/Header.jsx'
 
 import getEmotionImage from './utils/get-emotion-image.js'
 
@@ -17,17 +18,29 @@ function App() {
 
     return (
         <>
-            <div className={"flex gap-2"}>
-                <Button text={"123"} type={"DEFAULT"} onClick={() => {console.log("123")}}/>
-                <Button text={"123"} type={"POSITIVE"} onClick={() => {console.log("123")}}/>
-                <Button text={"123"} type={"NEGATIVE"} onClick={() => {console.log("123")}}/>
+            <Header
+                title={"Header"}
+                leftChild={<Button text={"left"} />}
+                rightChild={<Button text={"right"} />}
+                />
+
+                    <div className={"flex gap-2"}>
+                <Button text={"123"} onClick={() => {
+                    console.log("123")
+                }}/>
+                <Button text={"123"} type={"POSITIVE"} onClick={() => {
+                    console.log("123")
+                }}/>
+                <Button text={"123"} type={"NEGATIVE"} onClick={() => {
+                    console.log("123")
+                }}/>
             </div>
 
             <Routes>
-                <Route path="/" element={<Home/>} />
-                <Route path="/new" element={<New/>} />
-                <Route path="/diary/:id" element={<Diary/>} />
-                <Route path="*" element={<NotFound/>} />
+                <Route path="/" element={<Home/>}/>
+                <Route path="/new" element={<New/>}/>
+                <Route path="/diary/:id" element={<Diary/>}/>
+                <Route path="*" element={<NotFound/>}/>
             </Routes>
         </>
 

@@ -1,4 +1,7 @@
 const Button = ({ text, type, onClick }) => {
+    if (type === undefined) {
+        type = "DEFAULT";
+    }
     return (
         <button type="button"
                 onClick={onClick}
@@ -6,7 +9,7 @@ const Button = ({ text, type, onClick }) => {
                 Button_${type}`}>
             {text}
         </button>
-    )
+    );
 }
 
 export default Button;
