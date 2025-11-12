@@ -1,3 +1,5 @@
+import "../assets/css/Header.css";
+
 const Header = ({title, leftChild, rightChild}) => {
     return <header className={"Header"}>
         <div className={"header_left"}>{leftChild}</div>

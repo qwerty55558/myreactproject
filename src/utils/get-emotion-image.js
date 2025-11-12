@@ -4,7 +4,7 @@ import emotion3 from "./../assets/emotion/emotion3.png"
 import emotion4 from "./../assets/emotion/emotion4.png"
 import emotion5 from "./../assets/emotion/emotion5.png"
 
-function getEmotionImage(emotionId) {
+export function getEmotionImage(emotionId) {
     switch (emotionId){
         case 1:
             return emotion1;
@@ -20,5 +20,3 @@ function getEmotionImage(emotionId) {
             return null;
     }
 }
-
-export default getEmotionImage;
