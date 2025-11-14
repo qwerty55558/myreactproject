@@ -1,30 +1,9 @@
 import EmotionItem from "./EmotionItem.jsx";
-import {useState} from "react";
+import {useState, useEffect} from "react";
+import {useNavigate} from "react-router-dom";
 import Button from "./Button.jsx";
 import "../assets/css/Editor.css"
-
-const emotionList = [
-    {
-        emotionId: 1,
-        emotionName: "아주 좋음"
-    },
-    {
-        emotionId: 2,
-        emotionName: "좋음"
-    },
-    {
-        emotionId: 3,
-        emotionName: "그럭 저럭"
-    },
-    {
-        emotionId: 4,
-        emotionName: "나쁨"
-    },
-    {
-        emotionId: 5,
-        emotionName: "끔찍함"
-    }
-]
+import {emotionList} from "../utils/constants.js";
 
 const getStringedDate = (targetDate) => {
     // 날짜 -> yyyy-mm-dd
@@ -36,12 +15,25 @@ const getStringedDate = (targetDate) => {
     return `${year}-${month}-${day}`;
 }
 
-const Editor = () => {
+const Editor = ({onSubmit, initData}) => {
     const [input, setInput] = useState({
         createdDate: new Date(),
         emotionId: 3,
         content: "",
     });
+    const nav = useNavigate();
+
+    useEffect(() => {
+        if (initData) {
+            setInput({
+                    ...initData,
+                    createdDate: new Date(Number(initData.createdDate)),
+                }
+            );
+        }
+    }, [initData]);
+
+
 
     const onChangeInput = (e) => {
         let name = e.target.name;
@@ -55,6 +47,10 @@ const Editor = () => {
             ...input,
             [name]: value,
         })
+    }
+
+    const onClickSubmitButton = () => {
+        onSubmit(input);
     }
 
     return (
@@ -93,8 +89,11 @@ const Editor = () => {
                     placeholder={"오늘은 어땠나요?"}></textarea>
             </section>
             <section className={"button_section"}>
-                <Button text={"취소하기"}/>
-                <Button text={"작성완료"} type={"POSITIVE"}/>
+                <Button text={"취소하기"} onClick={() => nav(-1)}/>
+                <Button
+                    onClick={onClickSubmitButton}
+                    text={"작성완료"}
+                    type={"POSITIVE"}/>
             </section>
         </div>
     );
