@@ -1,20 +1,31 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Header from "../components/Header.jsx";
 import Button from "../components/Button.jsx";
 import Viewer from "../components/Viewer.jsx";
+import useDiary from "../hooks/useDiary.jsx";
+import { getStringedDate } from "./../utils/get-stringed-date.js";
 
 const Diary = () => {
     const params = useParams();
-    console.log(params.id);
+    const nav = useNavigate();
+
+    const curDiaryItem = useDiary(params.id);
+
+    if (!curDiaryItem) {
+        return <div>로딩중입니다...</div>;
+    }
+
+    const {createdDate, emotionId, content} = curDiaryItem;
+    const title = getStringedDate(new Date(createdDate));
 
     return (
         <>
             <Header
-                title={"yyyy-mm-dd"}
-                leftChild={<Button text={"<"}/>}
-                rightChild={<Button text={"수정하기"}/>}
+                title={`${title} 기록`}
+                leftChild={<Button onClick={() => nav(-1)} text={"<"}/>}
+                rightChild={<Button onClick={() => nav(`/edit/${params.id}`)} text={"수정하기"}/>}
             />
-            <Viewer />
+            <Viewer emotionId={emotionId} content={content}/>
         </>
     );
 }

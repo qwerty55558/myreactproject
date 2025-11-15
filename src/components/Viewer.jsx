@@ -3,8 +3,7 @@ import {getEmotionImage} from "../utils/get-emotion-image.js";
 import {emotionList} from "../utils/constants.js";
 
 
-const Viewer = () => {
-    const emotionId = 3;
+const Viewer = ({emotionId, content}) => {
 
     const emotionItem = emotionList.find(
         (item) =>
@@ -13,14 +12,21 @@ const Viewer = () => {
 
 
     return (
-        <>
+        <div className={"Viewer"}>
             <section className={"img_section"}>
-                <h4>오늘의 감정</h4>
-                <img src={getEmotionImage(emotionId)}/>
-                <div>{emotionItem.emotionName}</div>
+                <h4 >오늘의 감정</h4>
+                <div className={`emotion_img_wrapper emotion_img_wrapper_${emotionId}`}>
+                    <img src={getEmotionImage(emotionId)}/>
+                    <div>{emotionItem.emotionName}</div>
+                </div>
             </section>
-            <section className={"content_section"}>asdf</section>
-        </>
+            <section className={"content_section"}>
+                <h4>오늘의 일기</h4>
+                <div className={"content_wrapper"}>
+                    <p>{content}</p>
+                </div>
+            </section>
+        </div>
     );
 };
 

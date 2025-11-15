@@ -4,16 +4,8 @@ import {useNavigate} from "react-router-dom";
 import Button from "./Button.jsx";
 import "../assets/css/Editor.css"
 import {emotionList} from "../utils/constants.js";
+import {getStringedDate} from "../utils/get-stringed-date.js";
 
-const getStringedDate = (targetDate) => {
-    // 날짜 -> yyyy-mm-dd
-    let year = targetDate.getFullYear();
-    let month = targetDate.getMonth() + 1;
-    let day = targetDate.getDate();
-    if (month < 10) month = `0${month}`;
-    if (day < 10) day = `0${day}`;
-    return `${year}-${month}-${day}`;
-}
 
 const Editor = ({onSubmit, initData}) => {
     const [input, setInput] = useState({
